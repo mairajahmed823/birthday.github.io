@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Display</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #f0f0f0;
+            text-align: center;
+        }
+
+        #birthdayMessage {
+            font-size: 36px;
+            font-weight: bold;
+        }
+
+        #cake {
+            max-width: 100%;
+            width: 300px;
+            margin-top: 20px;
+        }
+
+        .balloon {
+            display: none;
+            position: absolute;
+            animation-name: float;
+            animation-duration: 2s;
+            animation-timing-function: ease-out;
+            animation-iteration-count: infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 576px) {
+            #cake {
+                width: 200px;
+            }
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        / Slideshow container / .slideshow-container {
+            max-width: 1000px;
+            position: relative;
+            margin: auto;
+        }
+
+        / Hide the images by default / .mySlides {
+            display: none;
+        }
+
+        / Next & previous buttons / .prev,
+        .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            margin-top: -22px;
+            padding: 16px;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            transition: 0.6s ease;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+        }
+
+        / Position the "next button" to the right / .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+
+        / On hover,
+        add a black background color with a little bit see-through / .prev:hover,
+        .next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        / Caption text / .text {
+            color: #f2f2f2;
+            font-size: 15px;
+            padding: 8px 12px;
+            position: absolute;
+            bottom: 8px;
+            width: 100%;
+            text-align: center;
+        }
+
+        / Number text (1/3 etc) / .numbertext {
+            color: #f2f2f2;
+            font-size: 12px;
+            padding: 8px 12px;
+            position: absolute;
+            top: 0;
+        }
+
+        / The dots/bullets/indicators / .dot {
+            cursor: pointer;
+            height: 15px;
+            width: 15px;
+            margin: 0 2px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+            transition: background-color 0.6s ease;
+        }
+
+        .active,
+        .dot:hover {
+            background-color: #717171;
+        }
+
+        / Fading animation / .fade {
+            animation-name: fade;
+            animation-duration: 1.5s;
+        }
+
+        @keyframes fade {
+            from {
+                opacity: .4
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+
+        .review {
+
+            height: auto;
+            width: 270px;
+            border-radius: 15px;
+            margin: auto;
+            padding: 10px;
+            margin-top: 30px;
+            box-shadow: 5px 5px 5px 5px black;
+            align-items: center;
+        }
+
+        .review__items {
+            align-items: center;
+            justify-content: space-evenly;
+            width: 250px;
+            padding: 10px;
+            align-items: center;
+        }
+
+        .review__items img {
+            height: 250px;
+            width: 250px;
+            border-radius: 5px;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 4px 15px;
+        }
+
+        .review__items h1 {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-size: 20px;
+        }
+
+        .review__items p {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-size: 14px;
+        }
+
+        .review__button {
+            text-align: center;
+            padding: 10px;
+        }
+
+        .review__button button {
+            color: rgb(192, 229, 192);
+            background: green;
+            font-weight: bold;
+        }
+
+        .review__items {
+            display: none;
+        }
+    </style>
+</head>
+
+<body class="bg-info" style="background: rgb(2,0,36);
+background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,98,121,1) 51%, rgba(0,212,255,1) 100%);">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <img id="cake" src="cake.jpg" class="m-auto pt-3" alt="Birthday Cake">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h1 style="margin-top: 50px;"></h1>
+
+                <b>
+                    <h1 id="liveTime" class="text-white"></h1>
+                </b>
+
+                <div id="birthdayMessage" style="color: mintcream;"></div>
+            </div>
+        </div>
+
+        <div class="review">
+
+            <div class="review__items">
+                <img src="Maiza 1.jpg" class="w-100" alt="ballon1">
+            </div>
+
+            <div class="review__items">
+                <img src="Maiza2.jpg" class="w-100" alt="ballon2">
+            </div>
+
+            <div class="review__items">
+                <img src="Maiza3.jpg" class="w-100" alt="partypoper">
+            </div>
+
+
+            <div class="review__button">
+                <button id="prev" onclick="previousReview()">Previous</button>
+                <button id="next" onclick="nextReview()">Next</button>
+            </div>
+        </div>
+
+        <div class="ml-5">
+            <img class="balloon mt-5" src="ballon1.jpg" alt="Balloon">
+            <img class="balloon" style="margin-top: 300px;" src="ballon2.jpg" alt="Balloon">
+            <img class="balloon" style="margin-top: 560px;" src="partypoper.png" alt="Balloon">
+        </div>
+    </div>
+
+
+    <script>
+
+        function updateLiveTime() {
+            const now = new Date();
+            let hours = now.getHours();
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+            const meridiem = hours >= 12 ? 'PM' : 'AM';
+
+            // Convert hours to 12-hour format
+            hours = hours % 12 || 12;
+
+            const timeString = `${hours}:${minutes}:${seconds} ${meridiem}`;
+            document.getElementById('liveTime').textContent = timeString;
+        }
+
+        // Update the live time every second (1000 milliseconds)
+        setInterval(updateLiveTime, 1000);
+
+        // Call updateLiveTime immediately to display the initial time
+        updateLiveTime();
+
+
+        let rev = 0;
+        carousel(rev);
+
+        function previousReview() {
+            rev = rev - 1;
+            carousel(rev);
+        }
+
+        function nextReview() {
+            rev = rev + 1;
+            carousel(rev);
+        }
+
+        function carousel(review) {
+
+            let reviews = document.getElementsByClassName('review__items');
+
+            if (review >= reviews.length) {
+                review = 0;
+                rev = 0;
+            }
+
+            if (review < 0) {
+
+                review = reviews.length - 1;
+                rev = reviews.length - 1;
+            }
+
+            for (let i = 0; i < reviews.length; i++) {
+                reviews[i].style.display = "none";
+            }
+            reviews[review].style.display = "block";
+
+        }
+
+
+        let today = new Date();
+        let month = today.getMonth() + 1;
+        let date = today.getDate();
+        let hours = today.getHours();
+        console.log(hours);
+        let minutes = today.getMinutes();
+        if (month == 3 && date == 28 && hours == 0 && minutes == 0){
+            document.getElementById("birthdayMessage").innerHTML = "Happy Birthday Maiza <i class='fa-solid fa-cake-candles'></i> <i class='fa-solid fa-gift'></i>";
+            document.getElementById("cake").style.display = "block";
+            let balloons = document.querySelectorAll(".balloon");
+            for (let i = 0; i < balloons.length; i++) {
+                balloons[i].style.display = "block";
+            }
+        } else {
+            document.getElementById("birthdayMessage").innerHTML = "Waiting for Maiza's Birthday!";
+        }
+
+    </script>
+
+</body>
+
+</html>
